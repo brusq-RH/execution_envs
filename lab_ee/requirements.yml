@@ -1,0 +1,10 @@
+collections:
+  - community.general
+  - community.vmware
+  - cloud.terraform
+  - amazon.aws
+  - awx.awx
+  - servicenow.servicenow
+  - servicenow.itsm
+  - azure.azcollection
+  - vmware.vmware_rest
