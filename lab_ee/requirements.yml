@@ -8,3 +8,4 @@ collections:
   - servicenow.itsm
   - azure.azcollection
   - vmware.vmware_rest
+  - ibm.turbonomic_eda
