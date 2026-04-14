@@ -1,0 +1,47 @@
+---
+version: 3
+
+images:
+  base_image:
+    name: registry.redhat.io/ansible-automation-platform-26/ee-supported-rhel9:latest
+
+dependencies:
+  galaxy:
+    collections:
+      - name: ansible.platform
+      - name: ansible.hub
+      - name: ansible.controller
+        version: ">=4.6.0"
+      - name: ansible.eda
+      - name: infra.aap_configuration
+      - name: redhat.openshift_virtualization
+      - name: redhat.openshift
+      - name: redhat.ai
+
+  system:
+    - pkgconf-pkg-config [platform:rpm]
+    - systemd-devel [platform:rpm]
+    - gcc [platform:rpm]
+    - python3-devel [platform:rpm]
+    - python3-pip [platform:rpm]
+    - libxml2-devel [platform:rpm]
+    - python-setuptools
+
+additional_build_files:
+  - src: ./ansible.cfg
+    dest: configs/
+
+
+build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: '-c ' # POC : disable verification of the server's SSL certificate
+
+additional_build_steps:
+  prepend_galaxy:
+    - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+
+#additional_build_steps:
+#  prepend_galaxy:
+#    - ENV ANSIBLE_GALAXY_SERVER_LIST=automation_hub
+#    - ENV ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_URL=https://test-systemu/pulp_ansible/galaxy/validated/
+#    - ARG ANSIBLE_GALAXY_SERVER_AUTOMATION_HUB_TOKEN=25a9df98b974cbdf5796c50c564d96cdb702ac84
+
