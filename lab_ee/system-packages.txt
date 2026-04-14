@@ -1,3 +1,0 @@
-systemd-devel
-gcc
-python3-devel
